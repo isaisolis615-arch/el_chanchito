@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../providers/providers.dart';
-import '../models/models.dart';
 import '../services/services.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -31,7 +29,7 @@ class SettingsScreen extends ConsumerWidget {
                   const SizedBox(height: 8),
                   diasRetencion.when(
                     data: (dias) => DropdownButtonFormField<int>(
-                      value: dias,
+                      initialValue: dias,
                       decoration: const InputDecoration(border: OutlineInputBorder(), contentPadding: EdgeInsets.symmetric(horizontal: 12)),
                       items: const [
                         DropdownMenuItem(value: 7, child: Text('7 Días')),

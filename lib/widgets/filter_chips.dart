@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
-import '../models/models.dart';
 
 class FilterChips extends ConsumerWidget {
   const FilterChips({super.key});

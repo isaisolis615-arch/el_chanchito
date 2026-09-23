@@ -565,8 +565,6 @@ class _DivisionDialogState extends ConsumerState<_DivisionDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return AlertDialog(
       title: Text(_esEdicion ? 'Editar División' : 'Nueva División'),
       content: SingleChildScrollView(

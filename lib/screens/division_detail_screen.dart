@@ -91,7 +91,7 @@ class DivisionDetailScreen extends ConsumerWidget {
             ),
           ),
           if (divTransacciones.isEmpty)
-            SliverFillRemaining(
+            const SliverFillRemaining(
               hasScrollBody: false,
               child: EmptyState(icon: Icons.receipt_long, title: 'Sin movimientos', subtitle: 'Esta división no tiene transacciones aún'),
             )

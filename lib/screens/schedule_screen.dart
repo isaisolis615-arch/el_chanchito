@@ -26,7 +26,6 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
   Widget build(BuildContext context) {
     final schedules = ref.watch(scheduledTransactionsProvider);
     final divisiones = ref.watch(divisionsProvider);
-    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(

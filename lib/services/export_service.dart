@@ -34,7 +34,6 @@ class ExportService {
     DateTime hasta,
   ) {
     final buffer = StringBuffer();
-    final divisionMap = {for (var d in divisiones) d.id: d.nombre};
 
     final filtradas = transacciones.where((t) {
       return t.fecha.isAfter(desde.subtract(const Duration(days: 1))) &&

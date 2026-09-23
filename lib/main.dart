@@ -113,9 +113,9 @@ class ElChanchitoApp extends ConsumerWidget {
           inputDecorationTheme: InputDecorationTheme(
             filled: true,
             fillColor: Colors.grey.shade100,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.green, width: 2)),
+            border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12)), borderSide: BorderSide.none),
+            enabledBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12)), borderSide: BorderSide.none),
+            focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12)), borderSide: BorderSide(color: Colors.green, width: 2)),
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           ),
           filledButtonTheme: FilledButtonThemeData(
@@ -144,9 +144,9 @@ class ElChanchitoApp extends ConsumerWidget {
           inputDecorationTheme: InputDecorationTheme(
             filled: true,
             fillColor: Colors.grey.shade900,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.green.shade300, width: 2)),
+            border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12)), borderSide: BorderSide.none),
+            enabledBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12)), borderSide: BorderSide.none),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12)), borderSide: BorderSide(color: Colors.green.shade300, width: 2)),
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           ),
           filledButtonTheme: FilledButtonThemeData(

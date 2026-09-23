@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../models/models.dart';
 import '../providers/providers.dart';
 import '../widgets/widgets.dart';
@@ -176,11 +175,10 @@ class _TransactionScreenState extends ConsumerState<TransactionScreen> {
         : division.saldo - monto;
     await ref.read(divisionsProvider.notifier).updateSaldo(_selectedDivisionId, nuevoSaldo);
 
-    if (context.mounted) {
-      context.pop();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${_isIncome ? "Ingreso" : "Egreso"} registrado correctamente')),
-      );
-    }
+    if (!mounted) return;
+    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${_isIncome ? "Ingreso" : "Egreso"} registrado correctamente')),
+    );
   }
 }

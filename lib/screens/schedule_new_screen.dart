@@ -32,8 +32,6 @@ class _ScheduleNewScreenState extends ConsumerState<ScheduleNewScreen> {
   bool _activa = true;
   bool _esEdicion = false;
 
-  bool get _isIncome => _tipo == TransactionType.ingreso;
-
   @override
   void initState() {
     super.initState();
@@ -80,9 +78,9 @@ class _ScheduleNewScreenState extends ConsumerState<ScheduleNewScreen> {
           padding: const EdgeInsets.all(20),
           children: [
             SegmentedButton<TransactionType>(
-              segments: [
-                ButtonSegment(value: TransactionType.ingreso, label: const Text('Ingreso'), icon: const Icon(Icons.arrow_downward)),
-                ButtonSegment(value: TransactionType.egreso, label: const Text('Egreso'), icon: const Icon(Icons.arrow_upward)),
+              segments: const [
+                ButtonSegment(value: TransactionType.ingreso, label: Text('Ingreso'), icon: Icon(Icons.arrow_downward)),
+                ButtonSegment(value: TransactionType.egreso, label: Text('Egreso'), icon: Icon(Icons.arrow_upward)),
               ],
               selected: {_tipo},
               onSelectionChanged: (newSelection) {
@@ -105,7 +103,7 @@ class _ScheduleNewScreenState extends ConsumerState<ScheduleNewScreen> {
             const SizedBox(height: 16),
             TextFormField(
               controller: _motivoController,
-              decoration: const InputDecoration(labelText: 'Motivo', prefixIcon: Icon(Icons.description), border: OutlineInputBorder()),
+              decoration: InputDecoration(labelText: 'Motivo', prefixIcon: const Icon(Icons.description), border: OutlineInputBorder()),
               validator: (v) => v == null || v.isEmpty ? 'Ingresa un motivo' : null,
             ),
             const SizedBox(height: 16),
@@ -113,7 +111,7 @@ class _ScheduleNewScreenState extends ConsumerState<ScheduleNewScreen> {
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               initialValue: _selectedDivisionId,
-              decoration: const InputDecoration(labelText: 'División', prefixIcon: Icon(Icons.account_balance_wallet), border: OutlineInputBorder()),
+              decoration: InputDecoration(labelText: 'División', prefixIcon: const Icon(Icons.account_balance_wallet), border: OutlineInputBorder()),
               items: divisiones.map((d) => DropdownMenuItem(value: d.id, child: Text(d.nombre))).toList(),
               onChanged: (v) => setState(() => _selectedDivisionId = v!),
               validator: (v) => v == null ? 'Selecciona una división' : null,

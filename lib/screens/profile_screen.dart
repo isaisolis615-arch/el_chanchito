@@ -176,7 +176,6 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   void _selectCurrency(BuildContext context, WidgetRef ref) {
-    final currentCurrency = ref.read(userProfileProvider).currencyCode;
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
@@ -211,7 +210,6 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   void _selectLanguage(BuildContext context, WidgetRef ref) {
-    final profile = ref.read(userProfileProvider);
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),

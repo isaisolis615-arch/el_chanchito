@@ -3,7 +3,7 @@ import '../models/models.dart';
 extension CurrencyFormatter on double {
   String toCurrency(Currency currency) {
     final sign = this >= 0 ? '' : '-';
-    final absValue = this.abs();
+    final absValue = abs();
     return '$sign${currency.symbol}${absValue.toStringAsFixed(currency.decimalDigits)}';
   }
 

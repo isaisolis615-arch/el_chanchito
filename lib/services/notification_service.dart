@@ -44,7 +44,7 @@ class NotificationService {
   }) async {
     await requestPermissions();
 
-    final androidDetails = AndroidNotificationDetails(
+    const androidDetails = AndroidNotificationDetails(
       'scheduled_transactions',
       'Transacciones Programadas',
       channelDescription: 'Notificaciones para transacciones programadas',
@@ -53,7 +53,7 @@ class NotificationService {
       icon: '@mipmap/ic_launcher',
     );
     const iosDetails = DarwinNotificationDetails();
-    final details = NotificationDetails(android: androidDetails, iOS: iosDetails);
+    const details = NotificationDetails(android: androidDetails, iOS: iosDetails);
 
     final tipoStr = transaction.tipo == TransactionType.ingreso ? 'Ingreso' : 'Egreso';
     final signo = transaction.tipo == TransactionType.ingreso ? '+' : '-';

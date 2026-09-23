@@ -247,7 +247,6 @@ final filterProvider = StateNotifierProvider<FilterNotifier, FilterState>((ref) 
 final filteredTransactionsProvider = Provider<List<Transaction>>((ref) {
   final transacciones = ref.watch(transactionsProvider);
   final filter = ref.watch(filterProvider);
-  final divisiones = ref.watch(divisionsProvider);
 
   var resultado = transacciones;
 
