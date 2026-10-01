@@ -94,7 +94,7 @@ class _ScheduleNewScreenState extends ConsumerState<ScheduleNewScreen> {
             TextFormField(
               controller: _montoController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Monto (${currency.symbol})', prefixIcon: const Icon(Icons.attach_money), border: const OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Monto', prefixIcon: Icon(Icons.attach_money), border: OutlineInputBorder()),
               validator: (v) => v == null || v.isEmpty || double.tryParse(v)! <= 0 ? 'Monto inválido' : null,
               onChanged: (v) => setState(() => _selectedAmount = double.tryParse(v)),
             ),
@@ -103,7 +103,7 @@ class _ScheduleNewScreenState extends ConsumerState<ScheduleNewScreen> {
             const SizedBox(height: 16),
             TextFormField(
               controller: _motivoController,
-              decoration: InputDecoration(labelText: 'Motivo', prefixIcon: const Icon(Icons.description), border: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Motivo', prefixIcon: Icon(Icons.description), border: OutlineInputBorder()),
               validator: (v) => v == null || v.isEmpty ? 'Ingresa un motivo' : null,
             ),
             const SizedBox(height: 16),
@@ -111,7 +111,7 @@ class _ScheduleNewScreenState extends ConsumerState<ScheduleNewScreen> {
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               initialValue: _selectedDivisionId,
-              decoration: InputDecoration(labelText: 'División', prefixIcon: const Icon(Icons.account_balance_wallet), border: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'División', prefixIcon: Icon(Icons.account_balance_wallet), border: OutlineInputBorder()),
               items: divisiones.map((d) => DropdownMenuItem(value: d.id, child: Text(d.nombre))).toList(),
               onChanged: (v) => setState(() => _selectedDivisionId = v!),
               validator: (v) => v == null ? 'Selecciona una división' : null,
