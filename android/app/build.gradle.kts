@@ -24,9 +24,8 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         multiDexEnabled = true
+        coreLibraryDesugaringEnabled = true
     }
-
-    coreLibraryDesugaringEnabled = true
 
     buildTypes {
         release {
