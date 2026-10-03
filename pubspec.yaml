@@ -30,7 +30,7 @@ dev_dependencies:
   very_good_analysis: ^6.0.0
 
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: "ic_launcher"
   ios: true
   image_path: "assets/logo.png"
 
