@@ -189,16 +189,22 @@ class ProfileScreen extends ConsumerWidget {
                 padding: EdgeInsets.all(16),
                 child: Text('Seleccionar Moneda', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
-              ...Currency.supported.map((c) => RadioListTile<String>(
+              ...Currency.supported.map((c) => ListTile(
                 title: Text('${c.name} (${c.symbol})'),
                 subtitle: Text('Código: ${c.code}'),
-                value: c.code,
-                groupValue: profile.currencyCode,
-                onChanged: (value) {
-                  if (value != null) {
-                    ref.read(userProfileProvider.notifier).updateCurrency(value);
-                    Navigator.pop(context);
-                  }
+                leading: Radio<String>(
+                  value: c.code,
+                  groupValue: profile.currencyCode,
+                  onChanged: (value) {
+                    if (value != null) {
+                      ref.read(userProfileProvider.notifier).updateCurrency(value);
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+                onTap: () {
+                  ref.read(userProfileProvider.notifier).updateCurrency(c.code);
+                  Navigator.pop(context);
                 },
               )),
               const SizedBox(height: 16),
@@ -223,16 +229,22 @@ class ProfileScreen extends ConsumerWidget {
                 padding: EdgeInsets.all(16),
                 child: Text('Seleccionar Idioma', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
-              ...AppLanguage.supported.map((l) => RadioListTile<String>(
+              ...AppLanguage.supported.map((l) => ListTile(
                 title: Text(l.nativeName),
                 subtitle: Text(l.name),
-                value: l.code,
-                groupValue: currentProfile.languageCode,
-                onChanged: (value) {
-                  if (value != null) {
-                    ref.read(userProfileProvider.notifier).updateLanguage(value);
-                    Navigator.pop(context);
-                  }
+                leading: Radio<String>(
+                  value: l.code,
+                  groupValue: currentProfile.languageCode,
+                  onChanged: (value) {
+                    if (value != null) {
+                      ref.read(userProfileProvider.notifier).updateLanguage(value);
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+                onTap: () {
+                  ref.read(userProfileProvider.notifier).updateLanguage(l.code);
+                  Navigator.pop(context);
                 },
               )),
               const SizedBox(height: 16),
