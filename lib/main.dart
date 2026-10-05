@@ -88,14 +88,15 @@ Future<_AppInitData> _initializeApp(WidgetRef ref) async {
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const AppInitializer());
+  runApp(const AppWrapper());
 }
 
-class AppInitializer extends ConsumerWidget {
-  const AppInitializer({super.key});
+class AppWrapper extends ConsumerWidget {
+  const AppWrapper({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Initialize the app future using the ref
     final initFuture = ref.watch(appInitProvider.future);
 
     return FutureBuilder<_AppInitData>(
