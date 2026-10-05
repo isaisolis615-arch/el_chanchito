@@ -10,8 +10,13 @@ class ThemeService {
   ThemeMode get themeMode => _themeMode;
 
   Future<void> initialize() async {
-    final isDark = await _repository.getModoOscuro();
-    _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    try {
+      final isDark = await _repository.getModoOscuro();
+      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    } catch (e) {
+      // Default to light theme on error
+      _themeMode = ThemeMode.light;
+    }
   }
 
   Future<void> toggleTheme() async {

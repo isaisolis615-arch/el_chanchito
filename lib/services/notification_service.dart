@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -16,19 +17,26 @@ class NotificationService {
   Future<void> initialize() async {
     if (_initialized) return;
 
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation('America/Argentina/Buenos_Aires'));
+    try {
+      if (!kIsWeb) {
+        tz.initializeTimeZones();
+        tz.setLocalLocation(tz.getLocation('America/Argentina/Buenos_Aires'));
 
-    const AndroidInitializationSettings androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    const DarwinInitializationSettings iosSettings = DarwinInitializationSettings();
-    const InitializationSettings settings = InitializationSettings(
-      android: androidSettings,
-      iOS: iosSettings,
-    );
+        const AndroidInitializationSettings androidSettings =
+            AndroidInitializationSettings('@mipmap/ic_launcher');
+        const DarwinInitializationSettings iosSettings = DarwinInitializationSettings();
+        const InitializationSettings settings = InitializationSettings(
+          android: androidSettings,
+          iOS: iosSettings,
+        );
 
-    await _notifications.initialize(settings);
-    _initialized = true;
+        await _notifications.initialize(settings);
+      }
+      _initialized = true;
+    } catch (e) {
+      // On web or if initialization fails, continue without notifications
+      _initialized = true;
+    }
   }
 
   Future<bool> requestPermissions() async {

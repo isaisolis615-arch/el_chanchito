@@ -56,28 +56,64 @@ final GoRouter _router = GoRouter(
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final prefs = await SharedPreferences.getInstance();
-  final repository = SharedPreferencesRepository();
-  await repository.initialize();
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    final repository = SharedPreferencesRepository();
+    await repository.initialize();
 
-  final themeService = ThemeService(repository);
-  await themeService.initialize();
+    final themeService = ThemeService(repository);
+    await themeService.initialize();
 
-  final notificationService = NotificationService();
-  await notificationService.initialize();
+    final notificationService = NotificationService();
+    await notificationService.initialize();
 
-  runApp(
-    ProviderScope(
-      overrides: [
-        sharedPreferencesProvider.overrideWithValue(prefs),
-      ],
-      child: ElChanchitoApp(
-        repository: repository,
-        themeService: themeService,
-        notificationService: notificationService,
+    runApp(
+      ProviderScope(
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(prefs),
+        ],
+        child: ElChanchitoApp(
+          repository: repository,
+          themeService: themeService,
+          notificationService: notificationService,
+        ),
       ),
-    ),
-  );
+    );
+  } catch (err, stack) {
+    // Show error in a minimal app
+    runApp(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                  const SizedBox(height: 16),
+                  const Text('Error de inicialización', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 12),
+                  SelectableText(
+                    err.toString(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 14, fontFamily: 'monospace'),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('Stack trace:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 8),
+                  SelectableText(
+                    stack.toString(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 11, fontFamily: 'monospace', color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+          ),
+      ),
+    );
+  }
 }
 
 class ElChanchitoApp extends ConsumerWidget {
@@ -167,7 +203,36 @@ class ElChanchitoApp extends ConsumerWidget {
         ),
       ),
       loading: () => const MaterialApp(home: Scaffold(body: Center(child: CircularProgressIndicator()))),
-      error: (_, __) => const MaterialApp(home: Scaffold(body: Center(child: Text('Error al cargar la app')))),
+      error: (err, stack) => MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                    const SizedBox(height: 16),
+                    const Text('Error de inicialización', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 12),
+                    SelectableText(
+                      err.toString(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 14, fontFamily: 'monospace'),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text('Stack trace:', style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 8),
+                    SelectableText(
+                      stack.toString(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 11, fontFamily: 'monospace', color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
     );
   }
 }
