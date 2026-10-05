@@ -189,24 +189,29 @@ class ProfileScreen extends ConsumerWidget {
                 padding: EdgeInsets.all(16),
                 child: Text('Seleccionar Moneda', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
-              ...Currency.supported.map((c) => ListTile(
-                title: Text('${c.name} (${c.symbol})'),
-                subtitle: Text('Código: ${c.code}'),
-                leading: Radio<String>(
-                  value: c.code,
-                  groupValue: profile.currencyCode,
-                  onChanged: (value) {
-                    if (value != null) {
-                      ref.read(userProfileProvider.notifier).updateCurrency(value);
-                      Navigator.pop(context);
-                    }
-                  },
-                ),
-                onTap: () {
-                  ref.read(userProfileProvider.notifier).updateCurrency(c.code);
-                  Navigator.pop(context);
+              RadioGroup<String>(
+                groupValue: profile.currencyCode,
+                onChanged: (value) {
+                  if (value != null) {
+                    ref.read(userProfileProvider.notifier).updateCurrency(value);
+                    Navigator.pop(context);
+                  }
                 },
-              )),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ...Currency.supported.map((c) => ListTile(
+                      title: Text('${c.name} (${c.symbol})'),
+                      subtitle: Text('Código: ${c.code}'),
+                      leading: Radio<String>(value: c.code),
+                      onTap: () {
+                        ref.read(userProfileProvider.notifier).updateCurrency(c.code);
+                        Navigator.pop(context);
+                      },
+                    )),
+                  ],
+                ),
+              ),
               const SizedBox(height: 16),
             ],
           );
@@ -229,24 +234,29 @@ class ProfileScreen extends ConsumerWidget {
                 padding: EdgeInsets.all(16),
                 child: Text('Seleccionar Idioma', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
-              ...AppLanguage.supported.map((l) => ListTile(
-                title: Text(l.nativeName),
-                subtitle: Text(l.name),
-                leading: Radio<String>(
-                  value: l.code,
-                  groupValue: currentProfile.languageCode,
-                  onChanged: (value) {
-                    if (value != null) {
-                      ref.read(userProfileProvider.notifier).updateLanguage(value);
-                      Navigator.pop(context);
-                    }
-                  },
-                ),
-                onTap: () {
-                  ref.read(userProfileProvider.notifier).updateLanguage(l.code);
-                  Navigator.pop(context);
+              RadioGroup<String>(
+                groupValue: currentProfile.languageCode,
+                onChanged: (value) {
+                  if (value != null) {
+                    ref.read(userProfileProvider.notifier).updateLanguage(value);
+                    Navigator.pop(context);
+                  }
                 },
-              )),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ...AppLanguage.supported.map((l) => ListTile(
+                      title: Text(l.nativeName),
+                      subtitle: Text(l.name),
+                      leading: Radio<String>(value: l.code),
+                      onTap: () {
+                        ref.read(userProfileProvider.notifier).updateLanguage(l.code);
+                        Navigator.pop(context);
+                      },
+                    )),
+                  ],
+                ),
+              ),
               const SizedBox(height: 16),
             ],
           );
