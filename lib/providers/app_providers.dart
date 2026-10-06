@@ -14,7 +14,7 @@ final localRepositoryProvider = Provider<LocalRepository>((ref) {
   return SharedPreferencesRepository();
 });
 
-final themeServiceProvider = Provider<ThemeService>((ref) {
+final themeServiceProvider = StateNotifierProvider<ThemeService, ThemeMode>((ref) {
   return ThemeService(ref.read(localRepositoryProvider));
 });
 
@@ -299,10 +299,9 @@ final languageProvider = Provider<AppLanguage>((ref) {
   return AppLanguage.fromCode(profile.languageCode) ?? AppLanguage.defaultLanguage;
 });
 
-final themeModeProvider = FutureProvider<ThemeMode>((ref) async {
-  final service = ref.read(themeServiceProvider);
-  await service.initialize();
-  return service.themeMode;
+final themeModeProvider = Provider<ThemeMode>((ref) {
+  final themeModeAsync = ref.watch(themeServiceProvider);
+  return themeModeAsync;
 });
 
 final diasRetencionProvider = FutureProvider<int>((ref) async {

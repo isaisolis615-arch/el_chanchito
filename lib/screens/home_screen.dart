@@ -278,7 +278,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               onTap: () {
                 Navigator.pop(context);
                 ref.read(userProfileProvider.notifier).updateModoOscuro(!profile.modoOscuro);
-                ref.read(themeServiceProvider).setThemeMode(
+                ref.read(themeServiceProvider.notifier).setThemeMode(
                   profile.modoOscuro ? ThemeMode.light : ThemeMode.dark,
                 );
               },

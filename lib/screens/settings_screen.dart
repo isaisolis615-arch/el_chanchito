@@ -63,7 +63,7 @@ class SettingsScreen extends ConsumerWidget {
                     value: profile.modoOscuro,
                     onChanged: (valor) {
                       ref.read(userProfileProvider.notifier).updateModoOscuro(valor);
-                      ref.read(themeServiceProvider).setThemeMode(valor ? ThemeMode.dark : ThemeMode.light);
+                      ref.read(themeServiceProvider.notifier).setThemeMode(valor ? ThemeMode.dark : ThemeMode.light);
                     },
                   ),
                 ),

@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../repositories/repositories.dart';
 
-class ThemeService {
+class ThemeService extends StateNotifier<ThemeMode> {
   final LocalRepository _repository;
-  ThemeMode _themeMode = ThemeMode.light;
 
-  ThemeService(this._repository);
-
-  ThemeMode get themeMode => _themeMode;
+  ThemeService(this._repository) : super(ThemeMode.light);
 
   Future<void> initialize() async {
     try {
       final isDark = await _repository.getModoOscuro();
-      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+      state = isDark ? ThemeMode.dark : ThemeMode.light;
     } catch (e) {
-      // Default to light theme on error
-      _themeMode = ThemeMode.light;
+      state = ThemeMode.light;
     }
   }
 
   Future<void> toggleTheme() async {
-    _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-    await _repository.setModoOscuro(_themeMode == ThemeMode.dark);
+    final newMode = state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    state = newMode;
+    await _repository.setModoOscuro(newMode == ThemeMode.dark);
   }
 
   Future<void> setThemeMode(ThemeMode mode) async {
-    _themeMode = mode;
+    state = mode;
     await _repository.setModoOscuro(mode == ThemeMode.dark);
   }
 }
