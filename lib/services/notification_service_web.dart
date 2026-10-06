@@ -5,11 +5,7 @@ class NotificationService {
   factory NotificationService() => _instance;
   NotificationService._internal();
 
-  bool _initialized = false;
-
-  Future<void> initialize() async {
-    _initialized = true;
-  }
+  Future<void> initialize() async {}
 
   Future<bool> requestPermissions() async => false;
 

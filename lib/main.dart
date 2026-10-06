@@ -67,30 +67,11 @@ class _AppInitData {
   });
 }
 
-Future<_AppInitData> _initializeApp(WidgetRef ref) async {
-  final prefs = await SharedPreferences.getInstance();
-  final repository = SharedPreferencesRepository();
-  await repository.initialize();
-
-  final themeService = ThemeService(repository: ref.read(localRepositoryProvider));
-  await themeService.initialize();
-
-  final notificationService = NotificationService();
-  await notificationService.initialize();
-
-  return _AppInitData(
-    prefs: prefs,
-    repository: repository,
-    themeService: themeService,
-    notificationService: notificationService,
-  );
-}
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    ProviderScope(
-      child: const AppInitializer(),
+    const ProviderScope(
+      child: AppInitializer(),
     ),
   );
 }
@@ -167,7 +148,7 @@ final appInitProvider = FutureProvider<_AppInitData>((ref) async {
   final repository = SharedPreferencesRepository();
   await repository.initialize();
 
-  final themeService = ThemeService(repository: ref.read(localRepositoryProvider));
+  final themeService = ThemeService(ref.read(localRepositoryProvider));
   await themeService.initialize();
 
   final notificationService = NotificationService();

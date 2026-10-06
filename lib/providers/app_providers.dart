@@ -15,7 +15,7 @@ final localRepositoryProvider = Provider<LocalRepository>((ref) {
 });
 
 final themeServiceProvider = Provider<ThemeService>((ref) {
-  return ThemeService(repository: ref.read(localRepositoryProvider));
+  return ThemeService(ref.read(localRepositoryProvider));
 });
 
 final notificationServiceProvider = Provider<NotificationService>((ref) {

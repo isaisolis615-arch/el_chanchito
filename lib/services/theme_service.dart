@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../repositories/repositories.dart';
 
 class ThemeService {
   final LocalRepository _repository;
   ThemeMode _themeMode = ThemeMode.light;
 
-  ThemeService({required LocalRepository repository, Ref? ref})
-      : _repository = repository;
+  ThemeService(this._repository);
 
   ThemeMode get themeMode => _themeMode;
 
