@@ -11,7 +11,7 @@ class NotificationService {
   factory NotificationService() => _instance;
   NotificationService._internal();
 
-  final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();
+  late final FlutterLocalNotificationsPlugin _notifications;
   bool _initialized = false;
 
   Future<void> initialize() async {
@@ -30,6 +30,7 @@ class NotificationService {
           iOS: iosSettings,
         );
 
+        _notifications = FlutterLocalNotificationsPlugin();
         await _notifications.initialize(settings);
       }
       _initialized = true;
@@ -40,6 +41,7 @@ class NotificationService {
   }
 
   Future<bool> requestPermissions() async {
+    if (kIsWeb) return false;
     if (await Permission.notification.isGranted) return true;
     final status = await Permission.notification.request();
     return status.isGranted;
@@ -50,6 +52,7 @@ class NotificationService {
     required ScheduledTransaction transaction,
     required DateTime scheduledDate,
   }) async {
+    if (kIsWeb) return;
     await requestPermissions();
 
     const androidDetails = AndroidNotificationDetails(
@@ -83,10 +86,12 @@ class NotificationService {
   }
 
   Future<void> cancelNotification(String id) async {
+    if (kIsWeb) return;
     await _notifications.cancel(id.hashCode);
   }
 
   Future<void> cancelAll() async {
+    if (kIsWeb) return;
     await _notifications.cancelAll();
   }
 
@@ -95,6 +100,7 @@ class NotificationService {
     required String body,
     String? payload,
   }) async {
+    if (kIsWeb) return;
     await requestPermissions();
 
     const androidDetails = AndroidNotificationDetails(

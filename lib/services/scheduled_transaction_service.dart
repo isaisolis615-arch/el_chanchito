@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../models/models.dart';
 import '../repositories/repositories.dart';
 import 'notification_service.dart';
@@ -29,11 +30,13 @@ class ScheduledTransactionService {
       if (proxima.isBefore(ahora) || proxima.isAtSameMomentAs(ahora)) {
         await _ejecutarTransaccion(schedule);
         await _repository.updateUltimaEjecucion(schedule.id, proxima);
-        await _notifications.scheduleTransactionNotification(
-          id: schedule.id,
-          transaction: schedule,
-          scheduledDate: proxima,
-        );
+        if (!kIsWeb) {
+          await _notifications.scheduleTransactionNotification(
+            id: schedule.id,
+            transaction: schedule,
+            scheduledDate: proxima,
+          );
+        }
       }
     }
   }

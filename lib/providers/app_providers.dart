@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,9 @@ final themeServiceProvider = Provider<ThemeService>((ref) {
 });
 
 final notificationServiceProvider = Provider<NotificationService>((ref) {
+  if (kIsWeb) {
+    return NotificationService();
+  }
   return NotificationService();
 });
 
@@ -26,6 +30,9 @@ final exportServiceProvider = Provider<ExportService>((ref) {
 });
 
 final scheduledTransactionServiceProvider = Provider<ScheduledTransactionService>((ref) {
+  if (kIsWeb) {
+    return ScheduledTransactionService(ref.read(localRepositoryProvider));
+  }
   return ScheduledTransactionService(ref.read(localRepositoryProvider));
 });
 
