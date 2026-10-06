@@ -72,9 +72,19 @@ class SettingsScreen extends ConsumerWidget {
                   leading: Icon(Icons.notifications, color: theme.colorScheme.primary),
                   title: const Text('Notificaciones'),
                   subtitle: Text(profile.notificacionesActivas ? 'Activadas' : 'Desactivadas'),
-                  trailing: Switch(
-                    value: profile.notificacionesActivas,
-                    onChanged: (valor) => ref.read(userProfileProvider.notifier).updateNotificaciones(valor),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.info_outline, size: 20, color: theme.colorScheme.onSurfaceVariant),
+                        tooltip: 'Información sobre notificaciones',
+                        onPressed: () => _showNotificationsInfo(context),
+                      ),
+                      Switch(
+                        value: profile.notificacionesActivas,
+                        onChanged: (valor) => ref.read(userProfileProvider.notifier).updateNotificaciones(valor),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -192,6 +202,40 @@ class SettingsScreen extends ConsumerWidget {
         const SizedBox(height: 16),
         const Text('Datos guardados localmente en tu dispositivo.'),
       ],
+    );
+  }
+
+  void _showNotificationsInfo(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(Icons.notifications, color: Theme.of(context).colorScheme.primary),
+            const SizedBox(width: 12),
+            const Text('Sobre las notificaciones'),
+          ],
+        ),
+        content: const SingleChildScrollView(
+          child: Text(
+            'Las notificaciones te avisan automáticamente cuando:\n\n'
+            '• Se ejecuta una transacción programada (sueldo, alquiler, suscripciones)\n'
+            '• Tienes un egreso recurrente próximo a vencer\n'
+            '• Un ingreso programado se ha depositado\n\n'
+            'Las notificaciones se envían en segundo plano aunque la app esté cerrada. '
+            'Puedes activarlas o desactivarlas en cualquier momento desde aquí.\n\n'
+            'Nota: En la versión web las notificaciones push no están disponibles, '
+            'pero se muestran dentro de la app cuando la abres.',
+            style: TextStyle(fontSize: 14, height: 1.5),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Entendido'),
+          ),
+        ],
+      ),
     );
   }
 }

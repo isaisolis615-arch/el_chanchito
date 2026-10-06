@@ -149,11 +149,11 @@ class AppInitializer extends ConsumerWidget {
 
             return ProviderScope(
               overrides: [
-                sharedPreferencesProvider.overrideWithValue(snapshot.data!.prefs),
+                sharedPreferencesProvider.overrideWithValue(data.prefs),
               ],
               child: ElChanchitoApp(
-                repository: snapshot.data!.repository,
-                notificationService: snapshot.data!.notificationService,
+                repository: data.repository,
+                notificationService: data.notificationService,
               ),
             );
           },
