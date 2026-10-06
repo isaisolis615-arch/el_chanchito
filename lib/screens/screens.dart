@@ -5,3 +5,5 @@ export 'profile_screen.dart';
 export 'schedule_screen.dart';
 export 'division_detail_screen.dart';
 export 'schedule_new_screen.dart';
+export 'divisions_screen.dart';
+export 'onboarding_screen.dart';

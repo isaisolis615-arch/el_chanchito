@@ -197,6 +197,11 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
     await update(updated);
   }
 
+  Future<void> updateEmail(String? email) async {
+    final updated = state.copyWith(email: email, ultimaActualizacion: DateTime.now());
+    await update(updated);
+  }
+
   Future<void> updateDiasRetencion(int dias) async {
     await _repository.setDiasRetencion(dias);
     final updated = state.copyWith(diasRetencion: dias, ultimaActualizacion: DateTime.now());
@@ -206,6 +211,8 @@ class UserProfileNotifier extends StateNotifier<UserProfile> {
   Future<void> refresh() async {
     await _load();
   }
+
+  bool get isProfileComplete => state.nombre != 'Usuario' && state.nombre.isNotEmpty;
 }
 
 final userProfileProvider = StateNotifierProvider<UserProfileNotifier, UserProfile>((ref) {

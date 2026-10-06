@@ -20,6 +20,14 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/divisions',
+      builder: (context, state) => const DivisionsScreen(),
+    ),
+    GoRoute(
       path: '/transaction',
       builder: (context, state) {
         final type = state.uri.queryParameters['type'] ?? 'egreso';
@@ -126,14 +134,29 @@ class AppInitializer extends ConsumerWidget {
 
         final data = snapshot.data!;
 
-        return ProviderScope(
-          overrides: [
-            sharedPreferencesProvider.overrideWithValue(data.prefs),
-          ],
-          child: ElChanchitoApp(
-            repository: data.repository,
-            notificationService: data.notificationService,
-          ),
+        // Check if profile is complete after initialization
+        return Consumer(
+          builder: (context, ref, _) {
+            final profile = ref.watch(userProfileProvider);
+            final isProfileComplete = profile.nombre != 'Usuario' && profile.nombre.isNotEmpty;
+
+            if (!isProfileComplete) {
+              return MaterialApp.router(
+                routerConfig: _router,
+                debugShowCheckedModeBanner: false,
+              );
+            }
+
+            return ProviderScope(
+              overrides: [
+                sharedPreferencesProvider.overrideWithValue(snapshot.data!.prefs),
+              ],
+              child: ElChanchitoApp(
+                repository: snapshot.data!.repository,
+                notificationService: snapshot.data!.notificationService,
+              ),
+            );
+          },
         );
       },
     );

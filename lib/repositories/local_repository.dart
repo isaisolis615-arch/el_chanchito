@@ -34,6 +34,8 @@ abstract class LocalRepository {
   Future<bool> getModoOscuro();
   Future<void> setModoOscuro(bool valor);
 
+  Future<void> clearUserProfile();
+
   Future<void> clearAllData();
 }
 
@@ -264,6 +266,13 @@ class SharedPreferencesRepository implements LocalRepository {
   @override
   Future<void> setModoOscuro(bool valor) async {
     await _prefs.setBool(_keyModoOscuro, valor);
+  }
+
+  @override
+  Future<void> clearUserProfile() async {
+    await _prefs.remove(_keyUserProfile);
+    await _prefs.remove(_keyModoOscuro);
+    await _prefs.remove(_keyDiasRetencion);
   }
 
   @override

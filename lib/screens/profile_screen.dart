@@ -164,8 +164,7 @@ class ProfileScreen extends ConsumerWidget {
           FilledButton(
             onPressed: () {
               final email = controller.text.trim();
-              final updated = ref.read(userProfileProvider).copyWith(email: email.isEmpty ? null : email);
-              ref.read(userProfileProvider.notifier).update(updated);
+              ref.read(userProfileProvider.notifier).updateEmail(email.isEmpty ? null : email);
               Navigator.pop(context);
             },
             child: const Text('Guardar'),
@@ -270,14 +269,19 @@ class ProfileScreen extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('¿Cerrar sesión?'),
-        content: const Text('Se cerrará la sesión actual. Los datos locales se mantendrán.'),
+        content: const Text('Se cerrará la sesión actual. Se borrará tu perfil pero se mantendrán tus datos financieros.'),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancelar')),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: Colors.red.shade700),
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context);
-              context.go('/');
+              await ref.read(localRepositoryProvider).clearUserProfile();
+              ref.invalidate(userProfileProvider);
+              ref.invalidate(themeModeProvider);
+              if (context.mounted) {
+                context.go('/onboarding');
+              }
             },
             child: const Text('Cerrar sesión'),
           ),

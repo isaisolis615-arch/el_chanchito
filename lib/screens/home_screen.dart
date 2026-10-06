@@ -304,7 +304,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text('Cerrar sesión', style: TextStyle(color: Colors.red)),
-              onTap: () => _showLogoutDialog(context),
+              onTap: () => _showLogoutDialog(context, ref),
             ),
             const SizedBox(height: 16),
           ],
@@ -454,19 +454,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('División duplicada')));
   }
 
-  void _showLogoutDialog(BuildContext context) {
+  void _showLogoutDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('¿Cerrar sesión?'),
-        content: const Text('Se cerrará la sesión actual. Los datos locales se mantendrán.'),
+        content: const Text('Se cerrará la sesión actual. Se borrará tu perfil pero se mantendrán tus datos financieros.'),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancelar')),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: Colors.red.shade700),
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context);
-              context.go('/');
+              await ref.read(localRepositoryProvider).clearUserProfile();
+              ref.invalidate(userProfileProvider);
+              ref.invalidate(themeModeProvider);
+              if (context.mounted) {
+                context.go('/onboarding');
+              }
             },
             child: const Text('Cerrar sesión'),
           ),
