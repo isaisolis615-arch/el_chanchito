@@ -138,7 +138,7 @@ FilledButton(
                   );
                   await ref.read(userProfileProvider.notifier).update(updated);
                   if (!mounted) return;
-                  context.go('/');
+                  if (context.mounted) context.go('/');
                 },
                 style: FilledButton.styleFrom(minimumSize: const Size(double.infinity, 56)),
                 child: const Text('Guardar y entrar', style: TextStyle(fontSize: 18)),

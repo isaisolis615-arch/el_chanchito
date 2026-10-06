@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../providers/providers.dart';
 import '../services/services.dart';
 
@@ -13,7 +14,16 @@ class SettingsScreen extends ConsumerWidget {
     final diasRetencion = ref.watch(diasRetencionProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('⚙️ Ajustes')),
+      appBar: AppBar(
+        title: const Text('⚙️ Ajustes'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            onPressed: () => context.push('/help'),
+            tooltip: 'Ayuda y Guía',
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [

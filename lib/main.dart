@@ -24,6 +24,10 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const OnboardingScreen(),
     ),
     GoRoute(
+      path: '/help',
+      builder: (context, state) => const HelpScreen(),
+    ),
+    GoRoute(
       path: '/divisions',
       builder: (context, state) => const DivisionsScreen(),
     ),

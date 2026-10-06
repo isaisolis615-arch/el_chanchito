@@ -60,6 +60,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         actions: [
           IconButton(
+            icon: const Icon(Icons.help_outline),
+            onPressed: () => context.push('/help'),
+            tooltip: 'Ayuda y Guía',
+          ),
+          IconButton(
             icon: CircleAvatar(
               radius: 16,
               backgroundColor: theme.colorScheme.primary,
@@ -297,6 +302,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               onTap: () {
                 Navigator.pop(context);
                 context.push('/profile');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.help_outline),
+              title: const Text('Ayuda y Guía'),
+              onTap: () {
+                Navigator.pop(context);
+                context.push('/help');
               },
             ),
             const Spacer(),

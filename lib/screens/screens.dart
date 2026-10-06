@@ -7,3 +7,4 @@ export 'division_detail_screen.dart';
 export 'schedule_new_screen.dart';
 export 'divisions_screen.dart';
 export 'onboarding_screen.dart';
+export 'help_screen.dart';

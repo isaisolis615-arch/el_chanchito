@@ -15,7 +15,16 @@ class ProfileScreen extends ConsumerWidget {
     final language = ref.watch(languageProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('👤 Mi Perfil')),
+      appBar: AppBar(
+        title: const Text('👤 Mi Perfil'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            onPressed: () => context.push('/help'),
+            tooltip: 'Ayuda y Guía',
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
